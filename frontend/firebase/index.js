@@ -24,7 +24,7 @@ class Firebase {
 
       const googleProvider = new app.auth.GoogleAuthProvider();
       googleProvider.addScope(
-        'https://www.googleapis.com/auth/fitness.activity.read	'
+        'https://www.googleapis.com/auth/fitness.activity.read'
       );
 
       this.providers = {

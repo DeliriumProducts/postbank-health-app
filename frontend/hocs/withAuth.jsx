@@ -8,6 +8,7 @@ const withAuth = Component => props => {
 
   React.useEffect(() => {
     firebase.auth.onAuthStateChanged(authUser => {
+      console.log(authUser);
       if (authUser) {
         setLoading(false);
       } else {

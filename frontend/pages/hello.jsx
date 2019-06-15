@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Link from 'next/link';
 import Button from '../components/Button';
 import styled from '@emotion/styled';
@@ -14,9 +15,11 @@ const Container = styled.div`
 
 function Hello({ router }) {
   const { state, dispatch } = React.useContext(Context);
+  const [ac, setAc] = React.useState(null);
 
   const handleLogin = async () => {
     const result = await firebase.loginWithPopup('google');
+    setAc(result.credential.accessToken);
     console.log(result);
   };
 
@@ -40,19 +43,33 @@ function Hello({ router }) {
       <Button onClick={handleLogin}>Login with google</Button>
       <Button
         onClick={async () => {
-          var addMessage = firebase.functions.httpsCallable('outputContext');
-          addMessage().then(function(result) {
-            // Read result of the Cloud Function.
-            console.log(result);
-            // ...
-          });
+          console.log(ac);
+          const r = await axios.get(
+            'https://www.googleapis.com/fitness/v1/users/me/dataSources',
+            // {
+            //   aggregateBy: [
+            //     {
+            //       dataTypeName: 'com.google.step_count.delta',
+            //       dataSourceId:
+            //         'derived:com.google.calories.expended:com.google.android.gms:from_bmr'
+            //     }
+            //   ],
+            //   bucketByTime: { durationMillis: 86400000 },
+            //   startTimeMillis: Date.now() - 86400000,
+            //   endTimeMillis: Date.now()
+            // },
+            {
+              headers: {
+                Authorization: `Bearer ${ac}`
+              },
+              withCredentials: true
+            }
+          );
 
-          // const a = firebase.functions.httpsCallable('outputContext');
-          // const res = await a();
-          // console.log(res);
+          console.log(r);
         }}
       >
-        get context
+        get data
       </Button>
       <br />
       <br />
