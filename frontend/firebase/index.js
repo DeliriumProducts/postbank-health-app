@@ -19,8 +19,13 @@ class Firebase {
       app.initializeApp(config);
       this.auth = app.auth();
       this.db = app.firestore();
+      const googleProvider = new app.auth.GoogleAuthProvider();
+      googleProvider.addScope(
+        'https://www.googleapis.com/auth/fitness.activity.read	'
+      );
+
       this.providers = {
-        google: new app.auth.GoogleAuthProvider()
+        google: googleProvider
       };
     }
   }
