@@ -39,12 +39,10 @@ const LogoAnimation = keyframes`
 
 const Text = styled.h2`
   color: white;
-  font-family: 'Josefin Sans';
 `;
 
 const Paragraph = styled.p`
   color: white;
-  font-family: 'Josefin Sans';
 `;
 
 const Logo = styled.img`

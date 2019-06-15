@@ -3,7 +3,6 @@ import { THEME_VARIABLES } from '../config/env.js';
 
 export default styled.button`
   font-size: 1.5rem;
-  font-family: 'Josefin Sans';
   font-weight: bold;
   padding: 1.5rem;
   border: none;
