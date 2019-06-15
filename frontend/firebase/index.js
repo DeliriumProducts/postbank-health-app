@@ -1,6 +1,7 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firebase-firestore';
+import 'firebase/functions';
 
 const config = {
   apiKey: 'AIzaSyDN6bsFGrxaqwhRdvAWwvIPgskw0B_yu9k',
@@ -19,6 +20,8 @@ class Firebase {
       app.initializeApp(config);
       this.auth = app.auth();
       this.db = app.firestore();
+      this.functions = app.functions();
+
       const googleProvider = new app.auth.GoogleAuthProvider();
       googleProvider.addScope(
         'https://www.googleapis.com/auth/fitness.activity.read	'

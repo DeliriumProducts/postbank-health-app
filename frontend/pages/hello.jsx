@@ -38,6 +38,22 @@ function Hello({ router }) {
       <br />
       <br />
       <Button onClick={handleLogin}>Login with google</Button>
+      <Button
+        onClick={async () => {
+          var addMessage = firebase.functions.httpsCallable('outputContext');
+          addMessage().then(function(result) {
+            // Read result of the Cloud Function.
+            console.log(result);
+            // ...
+          });
+
+          // const a = firebase.functions.httpsCallable('outputContext');
+          // const res = await a();
+          // console.log(res);
+        }}
+      >
+        get context
+      </Button>
       <br />
       <br />
       <Link href="/protected">
