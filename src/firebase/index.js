@@ -3,13 +3,13 @@ import 'firebase/auth';
 import 'firebase/firebase-firestore';
 
 const config = {
-  apiKey: 'AIzaSyBv3coYY3Irf3Yzmlfq5bf2GVGc1EUSD4I',
-  authDomain: 'frontend-template-48f7f.firebaseapp.com',
-  databaseURL: 'https://frontend-template-48f7f.firebaseio.com',
-  projectId: 'frontend-template-48f7f',
-  storageBucket: 'frontend-template-48f7f.appspot.com',
-  messagingSenderId: '1084133495005',
-  appId: '1:1084133495005:web:511af036f252e7de'
+  apiKey: 'AIzaSyDN6bsFGrxaqwhRdvAWwvIPgskw0B_yu9k',
+  authDomain: 'postbank-health-tracking.firebaseapp.com',
+  databaseURL: 'https://postbank-health-tracking.firebaseio.com',
+  projectId: 'postbank-health-tracking',
+  storageBucket: 'postbank-health-tracking.appspot.com',
+  messagingSenderId: '1029893651136',
+  appId: '1:1029893651136:web:363e9552a3aed3a1'
 };
 
 class Firebase {
