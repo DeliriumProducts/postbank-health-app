@@ -15,10 +15,7 @@ export default class MyDocument extends Document {
             src="https://apis.google.com/js/api.js"
             type="text/javascript"
           />
-          <link
-            href="https://fonts.googleapis.com/css?family=Josefin+Sans"
-            rel="stylesheet"
-          />
+          <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
           <meta name="description" content="App for Postbank" />
           <meta
             name="viewport"

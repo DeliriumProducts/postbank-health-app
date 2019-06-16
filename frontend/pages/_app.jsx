@@ -102,6 +102,7 @@ export default class MyApp extends App {
 
               * {
                 box-sizing: border-box;
+                font-family: 'Montserrat';
                 margin: 0;
                 padding: 0;
               }
