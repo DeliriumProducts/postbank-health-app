@@ -149,14 +149,16 @@ export default class MyApp extends App {
                       </a>
                     </Link>
                   </Menu.Item>
-                  <Menu.Item key="/my-profile">
-                    <Link href="/my-profile">
-                      <a>
-                        <Icon type="profile" />
-                        Профил
-                      </a>
-                    </Link>
-                  </Menu.Item>
+                  {this.state.user && (
+                    <Menu.Item key="/my-profile">
+                      <Link href="/my-profile">
+                        <a>
+                          <Icon type="profile" />
+                          Профил
+                        </a>
+                      </Link>
+                    </Menu.Item>
+                  )}
                 </Menu>
               </Header>
               <StyledContent>
