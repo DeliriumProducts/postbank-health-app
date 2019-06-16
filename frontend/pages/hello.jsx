@@ -36,14 +36,24 @@ function Hello({ router }) {
         onChange={e => {
           dispatch({ type: 'setFoo', payload: e.target.value });
         }}
-      ></Input>
+      />
       <br />
       <br />
       <Button onClick={handleLogin}>Login with google</Button>
       <Button
         onClick={async () => {
-          const res = await gapi.client.fitness.users.dataSources.list({
-            userId: 'me'
+          const res = await gapi.client.fitness.users.dataset.aggregate({
+            userId: 'me',
+            aggregateBy: [
+              {
+                dataTypeName: 'com.google.step_count.delta',
+                dataSourceId:
+                  'derived:com.google.step_count.delta:com.google.android.gms:estimated_steps'
+              }
+            ],
+            bucketByTime: { durationMillis: 86400000 },
+            startTimeMillis: Date.now() - 86400000,
+            endTimeMillis: Date.now()
           });
           console.log(res);
           // const b = firebase.getCurrentUser().getIdToken();
