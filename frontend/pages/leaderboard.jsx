@@ -1,5 +1,18 @@
+import { List } from 'antd';
+import styled from '@emotion/styled';
 import firebase from '../firebase';
 import React from 'react';
+
+const Card = styled.div`
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  align-items: center;
+  margin-bottom: 10px;
+`;
 
 export default () => {
   const [leaderboard, setLeaderboard] = React.useState();
@@ -10,7 +23,38 @@ export default () => {
   }, []);
   return (
     <div>
-      {leaderboard &&
+      <List
+        itemLayout="horizontal"
+        dataSource={leaderboard}
+        renderItem={(user, pos) => (
+          <Card>
+            <img
+              style={{
+                width: '10%',
+                borderRadius: '50%',
+                objectFit: 'cover',
+                boxShadow: '0 25px 50px -12px rgba(0,0,0,.25)'
+              }}
+              src={user.avatar}
+              alt={user.displayName}
+            />
+            <strong
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              }}
+            >
+              <span style={{ fontSize: 20, marginRight: 20 }}>{pos + 1} </span>
+              <span>{user.displayName}</span>
+            </strong>
+            <div>
+              <strong>{user.points}</strong> points
+            </div>
+          </Card>
+        )}
+      />
+      {/* {leaderboard &&
         leaderboard.map(b => {
           console.log(b);
           return (
@@ -18,7 +62,7 @@ export default () => {
               {b.displayName} - {b.points}
             </div>
           );
-        })}
+        })} */}
     </div>
   );
 };
