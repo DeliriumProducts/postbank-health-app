@@ -132,7 +132,7 @@ export default () => {
       <ProfileContainer>
         <img
           style={{
-            width: '50%',
+            width: '35%',
             borderRadius: '50%',
             objectFit: 'cover',
             boxShadow: '0 25px 50px -12px rgba(0,0,0,.25)'
