@@ -180,6 +180,7 @@ export default class MyApp extends App {
                   position: 'fixed',
                   bottom: 0,
                   width: '100%',
+                  padding: 15,
                   boxShadow: '0 30px 50px 12px rgba(0,0,0,.25)',
                   textAlign: 'center'
                 }}

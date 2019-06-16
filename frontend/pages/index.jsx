@@ -134,7 +134,7 @@ export default () => {
   } else if (user) {
     return (
       <ProfileContainer>
-        <h1>Следене на физическата активност</h1>
+        <h1 style={{ fontWeight: '600' }}>Следене на физическата активност</h1>
         <img
           style={{
             width: '35%',
