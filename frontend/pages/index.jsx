@@ -72,7 +72,6 @@ export default () => {
       window.gapi.client.fitness.users.dataset
         .aggregate({
           userId: 'me',
-
           aggregateBy: [
             {
               dataTypeName: 'com.google.calories.expended',
@@ -87,6 +86,7 @@ export default () => {
           endTimeMillis: Date.now()
         })
         .then(async r => {
+          console.log(r);
           const activities = r.result.bucket.filter(a =>
             [7, 8, 82, 1].includes(a.activity)
           );
@@ -187,8 +187,8 @@ export default () => {
           }}
         >
           <img
-            style={{ width: '75%', marginBottom: '1rem' }}
-            src="/static/postbank.png"
+            style={{ width: '35%', marginBottom: '1rem' }}
+            src="/static/postbankLogo.png"
             alt=""
           />
           <Button

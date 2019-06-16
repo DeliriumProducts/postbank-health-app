@@ -16,11 +16,6 @@ const Container = styled.div`
 
 function Hello({ router }) {
   const { state, dispatch } = React.useContext(Context);
-  const [ac, setAc] = React.useState(null);
-
-  const handleLogin = async () => {
-    const result = await firebase.login();
-  };
 
   return (
     <Container>
@@ -43,7 +38,6 @@ function Hello({ router }) {
       <Button
         onClick={async () => {
           router.push('/');
-          // const b = firebase.getCurrentUser().getIdToken();
         }}
       >
         get data
