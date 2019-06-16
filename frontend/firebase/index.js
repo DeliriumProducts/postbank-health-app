@@ -39,8 +39,8 @@ class Firebase {
   }
 
   initClient() {
-    window.gapi.load('client', () => {
-      window.gapi.client.init({
+    gapi.load('client', () => {
+      gapi.client.init({
         apiKey: config.apiKey,
         clientId: config.clientId,
         discoveryDocs: [
@@ -50,7 +50,7 @@ class Firebase {
           'https://www.googleapis.com/auth/fitness.activity.read https://www.googleapis.com/auth/fitness.body.read'
       });
 
-      window.gapi.client.load('fitness', 'v1', () => {
+      gapi.client.load('fitness', 'v1', () => {
         this.hasGapiLoadaded = true;
         console.log('fitness rdy');
       });
@@ -64,7 +64,7 @@ class Firebase {
   }
 
   async login() {
-    const googleAuth = window.gapi.auth2.getAuthInstance();
+    const googleAuth = gapi.auth2.getAuthInstance();
     const googleUser = await googleAuth.signIn();
 
     const token = googleUser.getAuthResponse().id_token;
