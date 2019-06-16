@@ -115,7 +115,7 @@ class Firebase {
           .collection('user')
           .doc(userId)
           .set({
-            points: pointsToBeAdded,
+            points: data.points + pointsToBeAdded,
             userId,
             displayName,
             avatar
