@@ -95,13 +95,12 @@ const MyProfile = () => {
                       alignItems: 'center'
                     }}
                   >
-                    <h1 style={{ margin: 0 }}>{user.displayName}</h1>{' '}
+                    <h1 style={{ margin: 0 }}>{user.displayName}</h1> :
                     <h2
                       style={{
                         margin: 0,
                         marginRight: 5,
-                        marginLeft: 5,
-                        fontWeight: 700
+                        marginLeft: 5
                       }}
                     >
                       {points}
