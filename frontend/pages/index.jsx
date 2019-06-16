@@ -139,7 +139,7 @@ export default () => {
   } else if (user) {
     return (
       <ProfileContainer>
-        <h1 style={{ fontWeight: '600' }}>Следене на физическата активност</h1>
+        <h1 style={{ fontWeight: '600' }}>Печели с движение!</h1>
         <img
           style={{
             width: '35%',
@@ -184,7 +184,7 @@ export default () => {
   } else {
     return (
       <ProfileContainer>
-        <h1 style={{ fontWeight: '600' }}>Следене на физическата активност</h1>
+        <h1 style={{ fontWeight: '600' }}>Печели с движение!</h1>
         <div
           style={{
             display: 'flex',

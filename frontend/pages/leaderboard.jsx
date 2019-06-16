@@ -13,10 +13,11 @@ const Container = styled.div`
 
 const AwardContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+
   & > * {
-    margin: 1rem;
+    margin: 10px;
   }
 
   flex-wrap: wrap;
