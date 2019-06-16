@@ -46,10 +46,8 @@ class Firebase {
         discoveryDocs: [
           'https://www.googleapis.com/discovery/v1/apis/fitness/v1/rest'
         ],
-        scope: [
-          'https://www.googleapis.com/auth/fitness.activity.read',
-          'https://www.googleapis.com/auth/fitness.body.read'
-        ]
+        scope:
+          'https://www.googleapis.com/auth/fitness.activity.read https://www.googleapis.com/auth/fitness.body.read'
       });
 
       window.gapi.client.load('fitness', 'v1', () => {
