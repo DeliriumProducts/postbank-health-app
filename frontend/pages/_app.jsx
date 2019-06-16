@@ -185,7 +185,13 @@ export default class MyApp extends App {
                   textAlign: 'center'
                 }}
               >
-                Разработено от Delirium Products! за Postbank.
+                Разработено от Delirium Products! за
+                <img
+                  style={{ marginLeft: 5, width: '24px' }}
+                  src="/static/postbankLogo.png"
+                  alt=""
+                />{' '}
+                Postbank.
               </Footer>
             </Layout>
           </Container>
