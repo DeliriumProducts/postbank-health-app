@@ -134,6 +134,7 @@ export default () => {
   } else if (user) {
     return (
       <ProfileContainer>
+        <h1>Следене на физическата активност</h1>
         <img
           style={{
             width: '35%',
@@ -178,6 +179,7 @@ export default () => {
   } else {
     return (
       <ProfileContainer>
+        <h1 style={{ fontWeight: '600' }}>Следене на физическата активност</h1>
         <div
           style={{
             display: 'flex',
@@ -192,6 +194,7 @@ export default () => {
             alt=""
           />
           <Button
+            type="primary"
             onClick={() => {
               firebase.login();
             }}

@@ -67,7 +67,7 @@ export default () => {
               <strong style={{ fontSize: 15, marginRight: 20 }}>
                 {user.points}
               </strong>{' '}
-              <span> points</span>
+              <span> Points</span>
             </div>
           </Card>
         )}
