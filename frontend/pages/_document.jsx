@@ -15,7 +15,10 @@ export default class MyDocument extends Document {
             src="https://apis.google.com/js/api.js"
             type="text/javascript"
           />
-          <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+          <link
+            href="https://fonts.googleapis.com/css?family=Montserrat"
+            rel="stylesheet"
+          />
           <meta name="description" content="App for Postbank" />
           <meta
             name="viewport"
@@ -34,7 +37,6 @@ export default class MyDocument extends Document {
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="mobile-web-app-capable" content="yes" />
           <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
-          <link rel="manifest" href="/static/manifest.json" />
           <link rel="shortcut icon" href="/static/favicon.ico" />
           <link
             rel="apple-touch-icon"

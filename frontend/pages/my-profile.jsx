@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import withAuth from '../hocs/withAuth.jsx';
 import Router from 'next/router';
 import firebase from '../firebase';
 import React from 'react';
@@ -14,7 +15,7 @@ const ProfileContainer = styled.div`
   }
 `;
 
-export default () => {
+const MyProfile = () => {
   const [user, setUser] = React.useState();
   const [weight, setWeight] = React.useState(0);
   const [points, setPoints] = React.useState(0);
@@ -131,3 +132,5 @@ export default () => {
     </ProfileContainer>
   );
 };
+
+export default withAuth(MyProfile);
