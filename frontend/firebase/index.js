@@ -97,6 +97,7 @@ class Firebase {
   async setPoints(points) {
     const userId = this.auth.currentUser.uid;
     const displayName = this.auth.currentUser.displayName;
+    const avatar = this.auth.currentUser.photoURL;
 
     const data = await this.db
       .collection('user')
@@ -116,7 +117,8 @@ class Firebase {
           .set({
             points: pointsToBeAdded,
             userId,
-            displayName
+            displayName,
+            avatar
           });
       } else {
         return null;
@@ -128,7 +130,8 @@ class Firebase {
         .set({
           points,
           userId,
-          displayName
+          displayName,
+          avatar
         });
     }
   }
