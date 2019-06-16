@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Spinner from '../components/Spinner';
 import firebase from '../firebase';
 import React from 'react';
 import { Button } from 'antd';
@@ -22,13 +23,16 @@ const Title = styled.h1`
 export default () => {
   const [steps, setSteps] = React.useState(null);
   const [user, setUser] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     const unsubscribe = firebase.onAuthStateChanged(user => {
       if (user) {
         setUser(user);
+        setLoading(false);
       } else {
         setUser(null);
+        setLoading(false);
       }
     });
 
@@ -59,25 +63,33 @@ export default () => {
     }
   }, [user]);
 
-  return (
-    <ProfileContainer>
-      {user ? (
-        <>
-          <img
-            style={{
-              width: '50%',
-              height: '50%',
-              borderRadius: '50%',
-              objectFit: 'cover',
-              boxShadow: '0 25px 50px -12px rgba(0,0,0,.25)'
-            }}
-            src={user.photoURL}
-            alt={user.displayName}
-          />
-          <Title>{user && user.displayName}</Title>
-          <h1>Здравейте! За последните 24 часа сте извървяли {steps} крачки</h1>
-        </>
-      ) : (
+  if (loading) {
+    return (
+      <ProfileContainer>
+        <Spinner></Spinner>
+      </ProfileContainer>
+    );
+  } else if (user) {
+    return (
+      <ProfileContainer>
+        <img
+          style={{
+            width: '50%',
+            height: '50%',
+            borderRadius: '50%',
+            objectFit: 'cover',
+            boxShadow: '0 25px 50px -12px rgba(0,0,0,.25)'
+          }}
+          src={user.photoURL}
+          alt={user.displayName}
+        />
+        <Title>{user && user.displayName}</Title>
+        <h1>Здравейте! За последните 24 часа сте извървяли {steps} крачки</h1>
+      </ProfileContainer>
+    );
+  } else {
+    return (
+      <ProfileContainer>
         <div
           style={{
             display: 'flex',
@@ -91,11 +103,15 @@ export default () => {
             src="/static/postbank.png"
             alt=""
           />
-          <Button onClick={firebase.login}>
-            Моля влезте със вашия Google account!
+          <Button
+            onClick={() => {
+              firebase.login();
+            }}
+          >
+            Моля влезте с вашия Google профил!
           </Button>
         </div>
-      )}
-    </ProfileContainer>
-  );
+      </ProfileContainer>
+    );
+  }
 };
