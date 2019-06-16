@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { FaRunning } from 'react-icons/fa';
 import Spinner from '../components/Spinner';
 import firebase from '../firebase';
 import React from 'react';
@@ -20,8 +21,26 @@ const Title = styled.h1`
   font-weight: bold;
 `;
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Activity = styled.div`
+  width: 45%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+
 export default () => {
-  const [steps, setSteps] = React.useState(null);
+  const [calFromSteps, setCalFromSteps] = React.useState(0);
+  const [calFromSwimming, setCalFromSwimming] = React.useState(0);
+  const [calFromClimbing, setCalFromClimbing] = React.useState(0);
+  const [calFromRunning, setCalFromRunning] = React.useState(0);
+
   const [user, setUser] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
 
@@ -46,19 +65,57 @@ export default () => {
       window.gapi.client.fitness.users.dataset
         .aggregate({
           userId: 'me',
+
           aggregateBy: [
             {
-              dataTypeName: 'com.google.step_count.delta',
+              dataTypeName: 'com.google.calories.expended',
               dataSourceId:
-                'derived:com.google.step_count.delta:com.google.android.gms:estimated_steps'
+                'derived:com.google.calories.expended:com.google.android.gms:from_activities'
             }
           ],
-          bucketByTime: { durationMillis: 86400000 },
+          bucketByActivitySegment: {
+            minDurationMilis: 10
+          },
           startTimeMillis: Date.now() - 86400000,
           endTimeMillis: Date.now()
         })
-        .then(d => {
-          setSteps(d.result.bucket[0].dataset[0].point[0].value[0].intVal);
+        .then(r => {
+          const activities = r.result.bucket.filter(a =>
+            [7, 8, 82, 77].includes(a.activity)
+          );
+
+          console.log(activities);
+
+          const totalPoints = Math.round(
+            activities.reduce((a, activity) => {
+              let pointsPerActivity = 0;
+              const cal = activity.dataset[0].point[0].value[0].fpVal;
+              switch (activity.activity) {
+                case 7:
+                  pointsPerActivity = (a + cal) * 0.2;
+                  setCalFromSteps(p => p + cal);
+                  break;
+                case 8:
+                  pointsPerActivity = (a + cal) * 0.65;
+                  setCalFromRunning(p => p + cal);
+                  break;
+                case 82:
+                  pointsPerActivity = (a + cal) * 0.8;
+                  setCalFromSwimming(p => p + cal);
+                  break;
+                case 77:
+                  pointsPerActivity = (a + cal) * 0.6;
+                  setCalFromClimbing(p => p + cal);
+                  break;
+                default:
+                  break;
+              }
+
+              return pointsPerActivity;
+            }, 0)
+          );
+
+          console.log(totalPoints);
         });
     }
   }, [user]);
@@ -84,8 +141,33 @@ export default () => {
         />
         <Title>{user && user.displayName}</Title>
         <h1>
-          Здравейте! За последните <strong>24</strong> часа сте извървяли
-          <strong> {steps}</strong> крачки
+          За последните <strong>24</strong> часа сте изгорили
+          <Container>
+            <Activity>
+              <FaRunning />{' '}
+              <span>
+                <strong>{calFromSteps} </strong> от ходене
+              </span>
+            </Activity>
+            <Activity>
+              <FaRunning />{' '}
+              <span>
+                <strong>{calFromRunning} </strong> от бягане
+              </span>
+            </Activity>
+            <Activity>
+              <FaRunning />{' '}
+              <span>
+                <strong>{calFromSwimming} </strong> от плуванее
+              </span>
+            </Activity>
+            <Activity>
+              <FaRunning />{' '}
+              <span>
+                <strong>{calFromClimbing} </strong> от катерене
+              </span>
+            </Activity>
+          </Container>
         </h1>
       </ProfileContainer>
     );
