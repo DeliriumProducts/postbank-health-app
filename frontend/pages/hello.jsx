@@ -1,7 +1,9 @@
 import React from 'react';
+import axios from 'axios';
 import Link from 'next/link';
 import Button from '../components/Button';
 import styled from '@emotion/styled';
+import { message } from 'antd';
 
 import { withRouter } from 'next/router';
 import firebase from '../firebase/';
@@ -14,11 +16,6 @@ const Container = styled.div`
 
 function Hello({ router }) {
   const { state, dispatch } = React.useContext(Context);
-
-  const handleLogin = async () => {
-    const result = await firebase.loginWithPopup('google');
-    console.log(result);
-  };
 
   return (
     <Container>
@@ -34,10 +31,17 @@ function Hello({ router }) {
         onChange={e => {
           dispatch({ type: 'setFoo', payload: e.target.value });
         }}
-      ></Input>
+      />
       <br />
       <br />
       <Button onClick={handleLogin}>Login with google</Button>
+      <Button
+        onClick={async () => {
+          router.push('/');
+        }}
+      >
+        get data
+      </Button>
       <br />
       <br />
       <Link href="/protected">
