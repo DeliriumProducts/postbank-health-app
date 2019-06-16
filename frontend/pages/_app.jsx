@@ -126,6 +126,14 @@ export default class MyApp extends App {
                 color="#fff"
               >
                 <Menu
+                  overflowedIndicator={
+                    <Icon
+                      type="menu"
+                      style={{
+                        cursor: 'pointer'
+                      }}
+                    />
+                  }
                   style={{
                     width: '100%',
                     position: 'fixed'
