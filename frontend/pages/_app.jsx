@@ -26,6 +26,8 @@ const StyledContent = styled(Content)`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  padding-top: 50px;
+  padding-bottom: 70px;
 `;
 
 Router.events.on('routeChangeStart', () => {
