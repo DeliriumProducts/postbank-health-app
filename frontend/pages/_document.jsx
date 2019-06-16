@@ -10,6 +10,10 @@ export default class MyDocument extends Document {
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
+          <script
+            src="https://apis.google.com/js/api.js"
+            type="text/javascript"
+          />
           <link
             href="https://fonts.googleapis.com/css?family=Josefin+Sans"
             rel="stylesheet"

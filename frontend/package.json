@@ -32,6 +32,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@types/gapi": "^0.0.36",
     "babel-eslint": "9.x",
     "eslint": "5.x",
     "eslint-config-react-app": "^4.0.1",

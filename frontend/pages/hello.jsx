@@ -3,6 +3,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import Button from '../components/Button';
 import styled from '@emotion/styled';
+import { message } from 'antd';
 
 import { withRouter } from 'next/router';
 import firebase from '../firebase/';
@@ -43,30 +44,14 @@ function Hello({ router }) {
       <Button onClick={handleLogin}>Login with google</Button>
       <Button
         onClick={async () => {
-          console.log(ac);
-          const r = await axios.get(
-            'https://www.googleapis.com/fitness/v1/users/me/dataSources',
-            // {
-            //   aggregateBy: [
-            //     {
-            //       dataTypeName: 'com.google.step_count.delta',
-            //       dataSourceId:
-            //         'derived:com.google.calories.expended:com.google.android.gms:from_bmr'
-            //     }
-            //   ],
-            //   bucketByTime: { durationMillis: 86400000 },
-            //   startTimeMillis: Date.now() - 86400000,
-            //   endTimeMillis: Date.now()
-            // },
-            {
-              headers: {
-                Authorization: `Bearer ${ac}`
-              },
-              withCredentials: true
-            }
-          );
-
-          console.log(r);
+          if (gapi) {
+            const res = await gapi.client.fitness.users.dataSources.list({
+              userId: 'me'
+            });
+          } else {
+            message.error('Google API not yet ready!');
+          }
+          // const b = firebase.getCurrentUser().getIdToken();
         }}
       >
         get data
