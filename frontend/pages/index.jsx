@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import firebase from '../firebase';
 import React from 'react';
+import { Button } from 'antd';
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -20,12 +21,14 @@ const Title = styled.h1`
 
 export default () => {
   const [steps, setSteps] = React.useState(null);
-  const [user, setUser] = React.useState();
+  const [user, setUser] = React.useState(null);
 
   React.useEffect(() => {
     const unsubscribe = firebase.onAuthStateChanged(user => {
       if (user) {
         setUser(user);
+      } else {
+        setUser(null);
       }
     });
 
@@ -35,7 +38,7 @@ export default () => {
   }, []);
 
   React.useEffect(() => {
-    if (firebase.hasGapiLoadaded) {
+    if (firebase.hasGapiLoadaded && user) {
       window.gapi.client.fitness.users.dataset
         .aggregate({
           userId: 'me',
@@ -54,25 +57,45 @@ export default () => {
           setSteps(d.result.bucket[0].dataset[0].point[0].value[0].intVal);
         });
     }
-  });
+  }, [user]);
 
   return (
     <ProfileContainer>
-      {user && (
-        <img
+      {user ? (
+        <>
+          <img
+            style={{
+              width: '50%',
+              height: '50%',
+              borderRadius: '50%',
+              objectFit: 'cover',
+              boxShadow: '0 25px 50px -12px rgba(0,0,0,.25)'
+            }}
+            src={user.photoURL}
+            alt={user.displayName}
+          />
+          <Title>{user && user.displayName}</Title>
+          <h1>Здравейте! За последните 24 часа сте извървяли {steps} крачки</h1>
+        </>
+      ) : (
+        <div
           style={{
-            width: '50%',
-            height: '50%',
-            borderRadius: '50%',
-            objectFit: 'cover',
-            boxShadow: '0 25px 50px -12px rgba(0,0,0,.25)'
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column'
           }}
-          src={user.photoURL}
-          alt={user.displayName}
-        />
+        >
+          <img
+            style={{ width: '75%', marginBottom: '1rem' }}
+            src="/static/postbank.png"
+            alt=""
+          />
+          <Button onClick={firebase.login}>
+            Моля влезте със вашия Google account!
+          </Button>
+        </div>
       )}
-      <Title>{user && user.displayName}</Title>
-      <h1>Здравейте! За последните 24 часа сте извървяли {steps} крачки</h1>
     </ProfileContainer>
   );
 };
