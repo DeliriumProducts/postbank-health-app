@@ -83,7 +83,10 @@ export default () => {
           alt={user.displayName}
         />
         <Title>{user && user.displayName}</Title>
-        <h1>Здравейте! За последните 24 часа сте извървяли {steps} крачки</h1>
+        <h1>
+          Здравейте! За последните <strong>24</strong> часа сте извървяли
+          <strong> {steps}</strong> крачки
+        </h1>
       </ProfileContainer>
     );
   } else {
