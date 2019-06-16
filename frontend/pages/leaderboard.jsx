@@ -1,4 +1,4 @@
-import { List } from 'antd';
+import { List, Icon } from 'antd';
 import styled from '@emotion/styled';
 import firebase from '../firebase';
 import React from 'react';
@@ -13,6 +13,12 @@ const Card = styled.div`
   align-items: center;
   margin-bottom: 10px;
 `;
+
+const trophies = {
+  1: <Icon type="trophy" style={{ color: '#ffd700', fontSize: 25 }} />,
+  2: <Icon type="trophy" style={{ color: '#c0c0c0', fontSize: 25 }} />,
+  3: <Icon type="trophy" style={{ color: '#cd7f32', fontSize: 25 }} />
+};
 
 export default () => {
   const [leaderboard, setLeaderboard] = React.useState();
@@ -45,11 +51,23 @@ export default () => {
                 justifyContent: 'space-between'
               }}
             >
-              <span style={{ fontSize: 20, marginRight: 20 }}>{pos + 1} </span>
-              <span>{user.displayName}</span>
+              <span style={{ fontSize: 20, marginLeft: 20, marginRight: 20 }}>
+                {pos + 1}{' '}
+              </span>
+              {pos <= 2 && trophies[pos + 1]}
+              <span style={{ marginLeft: 20 }}>{user.displayName}</span>
             </strong>
-            <div>
-              <strong>{user.points}</strong> points
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              }}
+            >
+              <strong style={{ fontSize: 20, marginRight: 20 }}>
+                {user.points}
+              </strong>{' '}
+              <span> points</span>
             </div>
           </Card>
         )}
