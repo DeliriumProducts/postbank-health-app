@@ -79,7 +79,11 @@ export default class MyApp extends App {
   };
 
   render() {
-    const { Component, pageProps } = this.props;
+    const {
+      Component,
+      pageProps,
+      router: { route }
+    } = this.props;
 
     return (
       <>
@@ -114,14 +118,31 @@ export default class MyApp extends App {
               <Header
                 style={{
                   height: 'auto',
+                  widht: '100%',
                   textAlign: 'center',
-                  backgroundColor: '#f0f2f5'
+                  backgroundColor: '#f0f2f5',
+                  padding: 0
                 }}
                 color="#fff"
               >
-                <Menu selectedKeys={['home']} mode="horizontal">
-                  <Menu.Item key="home">Home</Menu.Item>
-                  <Menu.Item key="leaderboard">Leaderboard</Menu.Item>
+                <Menu
+                  style={{
+                    width: '100%',
+                    position: 'fixed'
+                  }}
+                  selectedKeys={[route]}
+                  mode="horizontal"
+                >
+                  <Menu.Item key="/">
+                    <Link href="/">
+                      <a>Начало</a>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="/leaderboard">
+                    <Link href="/leaderboard">
+                      <a>Ранглист</a>
+                    </Link>
+                  </Menu.Item>
                 </Menu>
               </Header>
               <StyledContent>
