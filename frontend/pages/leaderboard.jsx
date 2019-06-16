@@ -3,6 +3,25 @@ import styled from '@emotion/styled';
 import firebase from '../firebase';
 import React from 'react';
 
+const Container = styled.div`
+  display: flex;
+  align-items: cener;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+`;
+
+const AwardContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & > * {
+    margin: 1rem;
+  }
+
+  flex-wrap: wrap;
+`;
+
 const Card = styled.div`
   border-radius: 10px;
   background-color: white;
@@ -28,7 +47,27 @@ export default () => {
     });
   }, []);
   return (
-    <div style={{ height: '100%' }}>
+    <Container>
+      <AwardContainer>
+        <Card>
+          {trophies[1]}
+          <h1 style={{ margin: 0, marginLeft: 20 }}>
+            <strong>1000 </strong>лв. ваучер
+          </h1>
+        </Card>
+        <Card>
+          {trophies[2]}
+          <h1 style={{ margin: 0, marginLeft: 20 }}>
+            <strong>500</strong> лв. ваучер
+          </h1>
+        </Card>
+        <Card>
+          {trophies[3]}
+          <h1 style={{ margin: 0, marginLeft: 20 }}>
+            <strong>250</strong> лв. ваучер
+          </h1>
+        </Card>
+      </AwardContainer>
       <List
         itemLayout="horizontal"
         dataSource={leaderboard}
@@ -51,7 +90,14 @@ export default () => {
                 justifyContent: 'space-between'
               }}
             >
-              <span style={{ fontSize: 15, marginLeft: 20, marginRight: 20 }}>
+              <span
+                style={{
+                  fontSize: 15,
+                  marginLeft: 20,
+                  fontWeight: 'bold',
+                  marginRight: 20
+                }}
+              >
                 {pos + 1}{' '}
               </span>
               {pos <= 2 && trophies[pos + 1]}
@@ -72,6 +118,6 @@ export default () => {
           </Card>
         )}
       />
-    </div>
+    </Container>
   );
 };
