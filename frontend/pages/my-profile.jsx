@@ -23,7 +23,7 @@ const MyProfile = () => {
 
   React.useEffect(() => {
     if (firebase.hasGapiLoadaded && user) {
-      window.gapi.client.fitness.users.dataset
+      gapi.client.fitness.users.dataset
         .aggregate({
           userId: 'me',
           aggregateBy: [
