@@ -80,12 +80,10 @@ export default () => {
           startTimeMillis: Date.now() - 86400000,
           endTimeMillis: Date.now()
         })
-        .then(r => {
+        .then(async r => {
           const activities = r.result.bucket.filter(a =>
             [7, 8, 82, 1].includes(a.activity)
           );
-
-          console.log(activities);
 
           const totalPoints = Math.round(
             activities.reduce((a, activity) => {
@@ -116,7 +114,7 @@ export default () => {
             }, 0)
           );
 
-          console.log(totalPoints);
+          await firebase.setPoints(totalPoints);
         });
     }
   }, [user]);
