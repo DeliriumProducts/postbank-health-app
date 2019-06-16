@@ -19,9 +19,7 @@ function Hello({ router }) {
   const [ac, setAc] = React.useState(null);
 
   const handleLogin = async () => {
-    const result = await firebase.loginWithPopup('google');
-    setAc(result.credential.accessToken);
-    console.log(result);
+    const result = await firebase.login();
   };
 
   return (
@@ -44,13 +42,10 @@ function Hello({ router }) {
       <Button onClick={handleLogin}>Login with google</Button>
       <Button
         onClick={async () => {
-          if (gapi) {
-            const res = await gapi.client.fitness.users.dataSources.list({
-              userId: 'me'
-            });
-          } else {
-            message.error('Google API not yet ready!');
-          }
+          const res = await gapi.client.fitness.users.dataSources.list({
+            userId: 'me'
+          });
+          console.log(res);
           // const b = firebase.getCurrentUser().getIdToken();
         }}
       >

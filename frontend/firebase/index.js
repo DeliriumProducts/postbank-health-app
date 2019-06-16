@@ -66,9 +66,9 @@ class Firebase {
 
     const token = googleUser.getAuthResponse().id_token;
 
-    const credential = this.auth.GoogleAuthProvider.credential(token);
+    const credential = app.auth.GoogleAuthProvider.credential(token);
 
-    return this.auth.signInAndRetrieveDataWithCredential(credential);
+    return this.auth.signInWithCredential(credential);
   }
 
   loginWithPopup(provider) {
