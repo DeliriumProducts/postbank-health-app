@@ -86,7 +86,6 @@ export default () => {
           endTimeMillis: Date.now()
         })
         .then(async r => {
-          console.log(r);
           const activities = r.result.bucket.filter(a =>
             [7, 8, 82, 1].includes(a.activity)
           );
@@ -95,21 +94,27 @@ export default () => {
             activities.reduce((a, activity) => {
               let pointsPerActivity = 0;
               const cal = activity.dataset[0].point[0].value[0].fpVal;
+              let points = 0;
+              console.log(cal);
               switch (activity.activity) {
                 case 7:
-                  pointsPerActivity = (a + cal) * 0.2;
+                  points = cal * 0.2;
+                  pointsPerActivity = a + points;
                   setCalFromSteps(p => Math.round(p + cal));
                   break;
                 case 8:
-                  pointsPerActivity = (a + cal) * 0.65;
+                  points = cal * 0.65;
+                  pointsPerActivity = a + points;
                   setCalFromRunning(p => Math.round(p + cal));
                   break;
                 case 82:
-                  pointsPerActivity = (a + cal) * 0.8;
+                  points = cal * 0.8;
+                  pointsPerActivity = a + points;
                   setCalFromSwimming(p => Math.round(p + cal));
                   break;
                 case 1:
-                  pointsPerActivity = (a + cal) * 0.6;
+                  points = cal * 0.6;
+                  pointsPerActivity = a + points;
                   setCalFromBiking(p => Math.round(p + cal));
                   break;
                 default:
