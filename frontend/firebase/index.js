@@ -39,22 +39,24 @@ class Firebase {
   }
 
   initClient() {
-    gapi.load('client', () => {
-      gapi.client.init({
-        apiKey: config.apiKey,
-        clientId: config.clientId,
-        discoveryDocs: [
-          'https://www.googleapis.com/discovery/v1/apis/fitness/v1/rest'
-        ],
-        scope:
-          'https://www.googleapis.com/auth/fitness.activity.read https://www.googleapis.com/auth/fitness.body.read'
-      });
+    if (window) {
+      gapi.load('client', () => {
+        gapi.client.init({
+          apiKey: config.apiKey,
+          clientId: config.clientId,
+          discoveryDocs: [
+            'https://www.googleapis.com/discovery/v1/apis/fitness/v1/rest'
+          ],
+          scope:
+            'https://www.googleapis.com/auth/fitness.activity.read https://www.googleapis.com/auth/fitness.body.read'
+        });
 
-      gapi.client.load('fitness', 'v1', () => {
-        this.hasGapiLoadaded = true;
-        console.log('fitness rdy');
+        gapi.client.load('fitness', 'v1', () => {
+          this.hasGapiLoadaded = true;
+          console.log('fitness rdy');
+        });
       });
-    });
+    }
   }
 
   async register(name, email, password) {

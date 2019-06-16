@@ -1,4 +1,5 @@
 import { List, Icon } from 'antd';
+import Spinner from '../components/Spinner.jsx';
 import styled from '@emotion/styled';
 import firebase from '../firebase';
 import React from 'react';
@@ -42,11 +43,23 @@ const trophies = {
 
 export default () => {
   const [leaderboard, setLeaderboard] = React.useState();
+  const [loading, setLoading] = React.useState(true);
+
   React.useEffect(() => {
     firebase.getLeaderboard().then(a => {
+      setLoading(false);
       setLeaderboard(a.docs.map(u => u.data()));
     });
   }, []);
+
+  if (loading) {
+    return (
+      <Container>
+        <Spinner />
+      </Container>
+    );
+  }
+
   return (
     <Container>
       <AwardContainer>

@@ -68,7 +68,7 @@ export default () => {
   }, []);
 
   React.useEffect(() => {
-    if (firebase.hasGapiLoadaded && user) {
+    if (window && firebase.hasGapiLoadaded && user) {
       gapi.client.fitness.users.dataset
         .aggregate({
           userId: 'me',
