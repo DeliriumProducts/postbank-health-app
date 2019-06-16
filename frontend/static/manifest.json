@@ -1,0 +1,10 @@
+{
+  "name": "Postbank Health",
+  "short_name": "Postbank Health",
+  "theme_color": "#2e54ad",
+  "background_color": "#f0f2f5",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/"
+}

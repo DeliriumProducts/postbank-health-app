@@ -16,11 +16,47 @@ const ProfileContainer = styled.div`
 
 export default () => {
   const [user, setUser] = React.useState();
+  const [weight, setWeight] = React.useState();
+  const [height, setHeight] = React.useState();
+
+  React.useEffect(() => {
+    if (firebase.hasGapiLoadaded && user) {
+      window.gapi.client.fitness.users.dataset
+        .aggregate({
+          userId: 'me',
+          aggregateBy: [
+            {
+              dataTypeName: 'com.google.height',
+              dataSourceId:
+                'derived:com.google.height:com.google.android.gms:merge_height'
+            },
+            {
+              dataTypeName: 'com.google.weight.summary',
+              dataSourceId:
+                'derived:com.google.weight:com.google.android.gms:merge_weight'
+            }
+          ],
+          bucketByTime: { durationMillis: 86400000 },
+          startTimeMillis: Date.now() - 86400000,
+          endTimeMillis: Date.now()
+        })
+        .then(d => {
+          console.log(d);
+          const bucket = d.result.bucket;
+          const weightArr = bucket[0].dataset[1].point[0].value;
+          const heightArr = bucket[0].dataset[0].point[0].value;
+
+          setWeight(weightArr[weightArr.length - 1].fpVal);
+          setHeight(heightArr[heightArr.length - 1].fpVal);
+        });
+    }
+  }, [user]);
 
   React.useEffect(() => {
     const unsubscribe = firebase.onAuthStateChanged(user => {
       if (user) {
         setUser(user);
+        console.log(user);
       } else {
         Router.push('/');
       }
@@ -41,7 +77,22 @@ export default () => {
               width: '50%'
             }}
           >
-            <Card.Meta title={user && user.displayName}></Card.Meta>
+            <Card.Meta
+              title={
+                user && (
+                  <h1 style={{ margin: 0, fontWeight: 'bold' }}>
+                    {user.displayName}
+                  </h1>
+                )
+              }
+              description={
+                <>
+                  Weight: {weight}kg.
+                  <br />
+                  Height: {height && Number(height).toFixed(2)}m.
+                </>
+              }
+            ></Card.Meta>
           </Card>
           <Button
             type="primary"
