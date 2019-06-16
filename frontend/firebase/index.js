@@ -102,20 +102,29 @@ class Firebase {
       .doc(userId)
       .get();
 
-    let pointsToBeAdded;
-    if (points > data.points) {
-      pointsToBeAdded = points - data.points;
-    }
+    if (data) {
+      let pointsToBeAdded;
+      if (points > data.points) {
+        pointsToBeAdded = points - data.points;
+      }
 
-    if (pointsToBeAdded) {
+      if (pointsToBeAdded) {
+        return this.db
+          .collection('user')
+          .doc(userId)
+          .set({
+            points: pointsToBeAdded
+          });
+      } else {
+        return null;
+      }
+    } else {
       return this.db
         .collection('user')
         .doc(userId)
         .set({
-          poitns: pointsToBeAdded
+          points
         });
-    } else {
-      return null;
     }
   }
 
