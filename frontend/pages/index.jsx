@@ -66,7 +66,7 @@ export default () => {
   if (loading) {
     return (
       <ProfileContainer>
-        <Spinner></Spinner>
+        <Spinner />
       </ProfileContainer>
     );
   } else if (user) {
@@ -75,7 +75,6 @@ export default () => {
         <img
           style={{
             width: '50%',
-            height: '50%',
             borderRadius: '50%',
             objectFit: 'cover',
             boxShadow: '0 25px 50px -12px rgba(0,0,0,.25)'
