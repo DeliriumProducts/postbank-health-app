@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { FaRunning } from 'react-icons/fa';
+import { FaRunning, FaWalking, FaSwimmer } from 'react-icons/fa';
+import { GiCycling } from 'react-icons/gi';
 import Spinner from '../components/Spinner';
 import firebase from '../firebase';
 import React from 'react';
@@ -29,16 +30,16 @@ const Container = styled.div`
 `;
 
 const Activity = styled.div`
-  width: 45%;
+  width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 `;
 
 export default () => {
   const [calFromSteps, setCalFromSteps] = React.useState(0);
   const [calFromSwimming, setCalFromSwimming] = React.useState(0);
-  const [calFromClimbing, setCalFromClimbing] = React.useState(0);
+  const [calFromBiking, setCalFromBiking] = React.useState(0);
   const [calFromRunning, setCalFromRunning] = React.useState(0);
 
   const [user, setUser] = React.useState(null);
@@ -81,7 +82,7 @@ export default () => {
         })
         .then(r => {
           const activities = r.result.bucket.filter(a =>
-            [7, 8, 82, 77].includes(a.activity)
+            [7, 8, 82, 1].includes(a.activity)
           );
 
           console.log(activities);
@@ -93,19 +94,19 @@ export default () => {
               switch (activity.activity) {
                 case 7:
                   pointsPerActivity = (a + cal) * 0.2;
-                  setCalFromSteps(p => p + cal);
+                  setCalFromSteps(p => Math.round(p + cal));
                   break;
                 case 8:
                   pointsPerActivity = (a + cal) * 0.65;
-                  setCalFromRunning(p => p + cal);
+                  setCalFromRunning(p => Math.round(p + cal));
                   break;
                 case 82:
                   pointsPerActivity = (a + cal) * 0.8;
-                  setCalFromSwimming(p => p + cal);
+                  setCalFromSwimming(p => Math.round(p + cal));
                   break;
-                case 77:
+                case 1:
                   pointsPerActivity = (a + cal) * 0.6;
-                  setCalFromClimbing(p => p + cal);
+                  setCalFromBiking(p => Math.round(p + cal));
                   break;
                 default:
                   break;
@@ -141,30 +142,30 @@ export default () => {
         />
         <Title>{user && user.displayName}</Title>
         <h1>
-          За последните <strong>24</strong> часа сте изгорили
+          За <strong>24</strong> часа сте изгорили
           <Container>
             <Activity>
-              <FaRunning />{' '}
+              <FaWalking />{' '}
               <span>
-                <strong>{calFromSteps} </strong> от ходене
+                <strong>{calFromSteps} cal</strong> от ходене
               </span>
             </Activity>
             <Activity>
               <FaRunning />{' '}
               <span>
-                <strong>{calFromRunning} </strong> от бягане
+                <strong>{calFromRunning} cal</strong> от бягане
               </span>
             </Activity>
             <Activity>
-              <FaRunning />{' '}
+              <FaSwimmer />{' '}
               <span>
-                <strong>{calFromSwimming} </strong> от плуванее
+                <strong>{calFromSwimming} cal</strong> от плуванее
               </span>
             </Activity>
             <Activity>
-              <FaRunning />{' '}
+              <GiCycling />{' '}
               <span>
-                <strong>{calFromClimbing} </strong> от катерене
+                <strong>{calFromBiking} cal</strong> от каране на колело
               </span>
             </Activity>
           </Container>
