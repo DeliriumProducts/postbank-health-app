@@ -7,9 +7,15 @@ const ProfileContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
   & > h1 {
     margin: 1rem;
   }
+`;
+
+const Title = styled.h1`
+  font-size: 2rem;
+  font-weight: bold;
 `;
 
 export default () => {
@@ -17,9 +23,15 @@ export default () => {
   const [user, setUser] = React.useState();
 
   React.useEffect(() => {
-    const result = firebase.getCurrentUser();
-    setUser(result);
-    console.log(result);
+    const unsubscribe = firebase.onAuthStateChanged(user => {
+      if (user) {
+        setUser(user);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   React.useEffect(() => {
@@ -49,16 +61,17 @@ export default () => {
       {user && (
         <img
           style={{
-            width: 300,
-            height: 300,
+            width: '50%',
+            height: '50%',
             borderRadius: '50%',
+            objectFit: 'cover',
             boxShadow: '0 25px 50px -12px rgba(0,0,0,.25)'
           }}
           src={user.photoURL}
           alt={user.displayName}
         />
       )}
-      <h1>{user && user.displayName}</h1>
+      <Title>{user && user.displayName}</Title>
       <h1>Здравейте! За последните 24 часа сте извървяли {steps} крачки</h1>
     </ProfileContainer>
   );

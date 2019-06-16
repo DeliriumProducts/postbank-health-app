@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import Spinner from '../components/Spinner';
 import ContextProvider from '../context/providers/contextProvider.jsx';
 import Head from 'next/head';
-import { Menu, Layout, Button, Divider } from 'antd';
+import { Menu, Layout, Button, Divider, Icon } from 'antd';
 import React from 'react';
 import NProgress from 'nprogress';
 import '../assets/nprogress.less';
@@ -135,12 +135,26 @@ export default class MyApp extends App {
                 >
                   <Menu.Item key="/">
                     <Link href="/">
-                      <a>Начало</a>
+                      <a>
+                        <Icon type="home" />
+                        Начало
+                      </a>
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="/leaderboard">
                     <Link href="/leaderboard">
-                      <a>Ранглист</a>
+                      <a>
+                        <Icon type="trophy" />
+                        Ранглист
+                      </a>
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="/my-profile">
+                    <Link href="/my-profile">
+                      <a>
+                        <Icon type="profile" />
+                        Профил
+                      </a>
                     </Link>
                   </Menu.Item>
                 </Menu>
@@ -148,7 +162,17 @@ export default class MyApp extends App {
               <StyledContent>
                 <Component {...pageProps} />
               </StyledContent>
-              <Footer>Delirium Products! ©2019</Footer>
+              <Footer
+                style={{
+                  position: 'fixed',
+                  bottom: 0,
+                  width: '100%',
+                  boxShadow: '0 30px 50px 12px rgba(0,0,0,.25)',
+                  textAlign: 'center'
+                }}
+              >
+                Разработено от Delirium Products! за Postbank.
+              </Footer>
             </Layout>
           </Container>
         </ContextProvider>
