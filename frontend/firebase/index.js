@@ -93,6 +93,39 @@ class Firebase {
       return this.auth.currentUser;
     }
   }
+
+  async setPoints(points) {
+    const userId = this.auth.currentUser.uid;
+
+    const data = await this.db
+      .collection('user')
+      .doc(userId)
+      .get();
+
+    let pointsToBeAdded;
+    if (points > data.points) {
+      pointsToBeAdded = points - data.points;
+    }
+
+    if (pointsToBeAdded) {
+      return this.db
+        .collection('user')
+        .doc(userId)
+        .set({
+          poitns: pointsToBeAdded
+        });
+    } else {
+      return null;
+    }
+  }
+
+  getLeaderboard() {
+    return this.db
+      .collection('user')
+      .orderBy('points')
+      .limit(10)
+      .get();
+  }
 }
 
 export default new Firebase();
