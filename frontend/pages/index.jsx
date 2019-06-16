@@ -12,9 +12,15 @@ const ProfileContainer = styled.div`
   align-items: center;
   flex-direction: column;
   text-align: center;
+
   & > h1 {
     margin: 1rem;
   }
+
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 15px;
 `;
 
 const Title = styled.h1`
@@ -132,7 +138,6 @@ export default () => {
           style={{
             width: '35%',
             borderRadius: '50%',
-            objectFit: 'cover',
             boxShadow: '0 25px 50px -12px rgba(0,0,0,.25)'
           }}
           src={user.photoURL}

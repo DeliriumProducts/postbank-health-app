@@ -136,6 +136,19 @@ class Firebase {
     }
   }
 
+  getPoints() {
+    if (this.auth && this.auth.currentUser) {
+      const userId = this.auth.currentUser.uid;
+
+      return this.db
+        .collection('user')
+        .doc(userId)
+        .get();
+    } else {
+      return null;
+    }
+  }
+
   getLeaderboard() {
     return this.db
       .collection('user')

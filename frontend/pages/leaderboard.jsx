@@ -28,59 +28,48 @@ export default () => {
     });
   }, []);
   return (
-    <div>
-      <List
-        itemLayout="horizontal"
-        dataSource={leaderboard}
-        renderItem={(user, pos) => (
-          <Card>
-            <img
-              style={{
-                width: '10%',
-                borderRadius: '50%',
-                objectFit: 'cover',
-                boxShadow: '0 25px 50px -12px rgba(0,0,0,.25)'
-              }}
-              src={user.avatar}
-              alt={user.displayName}
-            />
-            <strong
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}
-            >
-              <span style={{ fontSize: 20, marginLeft: 20, marginRight: 20 }}>
-                {pos + 1}{' '}
-              </span>
-              {pos <= 2 && trophies[pos + 1]}
-              <span style={{ marginLeft: 20 }}>{user.displayName}</span>
-            </strong>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}
-            >
-              <strong style={{ fontSize: 20, marginRight: 20 }}>
-                {user.points}
-              </strong>{' '}
-              <span> points</span>
-            </div>
-          </Card>
-        )}
-      />
-      {/* {leaderboard &&
-        leaderboard.map(b => {
-          console.log(b);
-          return (
-            <div key={b.id}>
-              {b.displayName} - {b.points}
-            </div>
-          );
-        })} */}
-    </div>
+    <List
+      itemLayout="horizontal"
+      dataSource={leaderboard}
+      renderItem={(user, pos) => (
+        <Card>
+          <img
+            style={{
+              width: '10%',
+              borderRadius: '50%',
+              objectFit: 'cover',
+              boxShadow: '0 25px 50px -12px rgba(0,0,0,.25)'
+            }}
+            src={user.avatar}
+            alt={user.displayName}
+          />
+          <strong
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}
+          >
+            <span style={{ fontSize: 20, marginLeft: 20, marginRight: 20 }}>
+              {pos + 1}{' '}
+            </span>
+            {pos <= 2 && trophies[pos + 1]}
+            <span style={{ marginLeft: 20 }}>{user.displayName}</span>
+          </strong>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}
+          >
+            <strong style={{ fontSize: 20, marginRight: 20 }}>
+              {user.points}
+            </strong>{' '}
+            <span> points</span>
+          </div>
+        </Card>
+      )}
+    />
   );
 };

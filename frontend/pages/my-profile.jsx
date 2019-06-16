@@ -16,8 +16,9 @@ const ProfileContainer = styled.div`
 
 export default () => {
   const [user, setUser] = React.useState();
-  const [weight, setWeight] = React.useState();
-  const [height, setHeight] = React.useState();
+  const [weight, setWeight] = React.useState(0);
+  const [points, setPoints] = React.useState(0);
+  const [height, setHeight] = React.useState(0);
 
   React.useEffect(() => {
     if (firebase.hasGapiLoadaded && user) {
@@ -41,7 +42,6 @@ export default () => {
           endTimeMillis: Date.now()
         })
         .then(d => {
-          console.log(d);
           const bucket = d.result.bucket;
           const weightArr = bucket[0].dataset[1].point[0].value;
           const heightArr = bucket[0].dataset[0].point[0].value;
@@ -49,6 +49,14 @@ export default () => {
           setWeight(weightArr[weightArr.length - 1].fpVal);
           setHeight(heightArr[heightArr.length - 1].fpVal);
         });
+    }
+  }, [user]);
+
+  React.useEffect(() => {
+    if (user) {
+      firebase.getPoints().then(a => {
+        setPoints(a.data().points);
+      });
     }
   }, [user]);
 
@@ -80,16 +88,32 @@ export default () => {
             <Card.Meta
               title={
                 user && (
-                  <h1 style={{ margin: 0, fontWeight: 'bold' }}>
-                    {user.displayName}
-                  </h1>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <h1 style={{ margin: 0 }}>{user.displayName}</h1>{' '}
+                    <h2
+                      style={{
+                        margin: 0,
+                        marginRight: 5,
+                        marginLeft: 5,
+                        fontWeight: 700
+                      }}
+                    >
+                      {points}
+                    </h2>{' '}
+                    точки
+                  </div>
                 )
               }
               description={
                 <>
-                  Weight: {weight}kg.
+                  Тегло: {weight}kg.
                   <br />
-                  Height: {height && Number(height).toFixed(2)}m.
+                  Височина: {height && Number(height).toFixed(2)}m.
                 </>
               }
             ></Card.Meta>
