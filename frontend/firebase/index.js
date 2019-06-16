@@ -102,7 +102,7 @@ class Firebase {
       .doc(userId)
       .get();
 
-    if (data) {
+    if (data.document) {
       let pointsToBeAdded;
       if (points > data.points) {
         pointsToBeAdded = points - data.points;
