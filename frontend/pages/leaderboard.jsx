@@ -5,9 +5,20 @@ export default () => {
   const [leaderboard, setLeaderboard] = React.useState();
   React.useEffect(() => {
     firebase.getLeaderboard().then(a => {
-      console.log(a);
-      setLeaderboard(a);
+      setLeaderboard(a.docs.map(u => u.data()));
     });
   }, []);
-  return <div>hello!</div>;
+  return (
+    <div>
+      {leaderboard &&
+        leaderboard.map(b => {
+          console.log(b);
+          return (
+            <div key={b.id}>
+              {b.displayName} - {b.points}
+            </div>
+          );
+        })}
+    </div>
+  );
 };

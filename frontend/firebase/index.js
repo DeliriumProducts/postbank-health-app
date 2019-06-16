@@ -96,6 +96,7 @@ class Firebase {
 
   async setPoints(points) {
     const userId = this.auth.currentUser.uid;
+    const displayName = this.auth.currentUser.displayName;
 
     const data = await this.db
       .collection('user')
@@ -113,7 +114,9 @@ class Firebase {
           .collection('user')
           .doc(userId)
           .set({
-            points: pointsToBeAdded
+            points: pointsToBeAdded,
+            userId,
+            displayName
           });
       } else {
         return null;
@@ -123,7 +126,9 @@ class Firebase {
         .collection('user')
         .doc(userId)
         .set({
-          points
+          points,
+          userId,
+          displayName
         });
     }
   }
@@ -131,7 +136,7 @@ class Firebase {
   getLeaderboard() {
     return this.db
       .collection('user')
-      .orderBy('points')
+      .orderBy('points', 'desc')
       .limit(10)
       .get();
   }
