@@ -2,10 +2,10 @@
   "name": "frontend-template",
   "version": "1.0.0",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "prod:docker": "npm run build && NODE_ENV=production node server.js"
+    "prod:docker": "npm run build && NODE_ENV=production next build"
   },
   "dependencies": {
     "@emotion/core": "^10.0.10",
