@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import withAuth from '../hocs/withAuth.jsx';
+import { Button, Card } from 'antd';
 import Router from 'next/router';
-import firebase from '../firebase';
 import React from 'react';
-import { Card, Button } from 'antd';
+import firebase from '../firebase';
+import withAuth from '../hocs/withAuth.jsx';
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -22,7 +22,7 @@ const MyProfile = () => {
   const [height, setHeight] = React.useState(0);
 
   React.useEffect(() => {
-    if (window && firebase.hasGapiLoadaded && user) {
+    if (typeof window !== 'undefined') {
       gapi.client.fitness.users.dataset
         .aggregate({
           userId: 'me',

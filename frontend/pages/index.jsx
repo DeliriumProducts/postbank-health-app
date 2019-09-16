@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import { FaRunning, FaWalking, FaSwimmer } from 'react-icons/fa';
+import { Button } from 'antd';
+import React from 'react';
+import { FaRunning, FaSwimmer, FaWalking } from 'react-icons/fa';
 import { GiCycling } from 'react-icons/gi';
 import Spinner from '../components/Spinner';
 import firebase from '../firebase';
-import React from 'react';
-import { Button } from 'antd';
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -68,7 +68,7 @@ export default () => {
   }, []);
 
   React.useEffect(() => {
-    if (window && firebase.hasGapiLoadaded && user) {
+    if (typeof window !== 'undefined' && firebase.hasGapiLoadaded && user) {
       gapi.client.fitness.users.dataset
         .aggregate({
           userId: 'me',

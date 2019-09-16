@@ -39,7 +39,7 @@ class Firebase {
   }
 
   initClient() {
-    if (window) {
+    if (typeof window !== 'undefined') {
       gapi.load('client', () => {
         gapi.client.init({
           apiKey: config.apiKey,
@@ -66,14 +66,16 @@ class Firebase {
   }
 
   async login() {
-    const googleAuth = gapi.auth2.getAuthInstance();
-    const googleUser = await googleAuth.signIn();
+    if (typeof window !== 'undefined') {
+      const googleAuth = gapi.auth2.getAuthInstance();
+      const googleUser = await googleAuth.signIn();
 
-    const token = googleUser.getAuthResponse().id_token;
+      const token = googleUser.getAuthResponse().id_token;
 
-    const credential = app.auth.GoogleAuthProvider.credential(token);
+      const credential = app.auth.GoogleAuthProvider.credential(token);
 
-    return this.auth.signInWithCredential(credential);
+      return this.auth.signInWithCredential(credential);
+    }
   }
 
   loginWithPopup(provider) {
