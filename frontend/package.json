@@ -12,7 +12,7 @@
     "@emotion/styled": "^10.0.12",
     "@zeit/next-less": "^1.0.1",
     "antd": "^3.23.2",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "babel-plugin-import": "^1.7.0",
     "compression": "^1.7.4",
     "dotenv": "^8.0.0",
